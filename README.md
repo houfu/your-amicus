@@ -1,4 +1,5 @@
 # Your Amicus
+![Screenshot of web application](Screenshot.png)
 
 This is a Pynecone project using GPT-3 to create a legal Chatbot.
 
