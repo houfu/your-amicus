@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "your-amicus"
+version = "0.1.0"
+description = ""
+authors = ["houfu <houfu@outlook.stg>"]
+readme = "README.md"
+packages = [{ include = "your_amicus" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+langchain = "^0.0.69"
+openai = "^0.26.2"
+
+
+[tool.poetry.group.dev.dependencies]
+pynecone-io = "^0.1.13"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
