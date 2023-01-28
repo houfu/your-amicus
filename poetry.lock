@@ -265,7 +265,7 @@ python-versions = ">=3.8"
 
 [[package]]
 name = "openai"
-version = "0.26.3"
+version = "0.26.4"
 description = "Python client library for the OpenAI API"
 category = "main"
 optional = false
@@ -1006,7 +1006,7 @@ numpy = [
     { file = "numpy-1.24.1.tar.gz", hash = "sha256:2386da9a471cc00a1f47845e27d916d5ec5346ae9696e01a8a34760858fe9dd2" },
 ]
 openai = [
-    { file = "openai-0.26.3.tar.gz", hash = "sha256:43f6d0ef38e616f9d53c4560d03e26c78ca15d96c577c10451febd39ac784c0c" },
+    { file = "openai-0.26.4.tar.gz", hash = "sha256:168813319a1422cb71a5005f9e404065483556cea52c9ccbfb838cda134087a7" },
 ]
 plotly = [
     { file = "plotly-5.13.0-py2.py3-none-any.whl", hash = "sha256:4ac5db72176ce144f1fcde8d1ef7bdbccf5bb7a53e3d366b16fcd7c85319fdfd" },
