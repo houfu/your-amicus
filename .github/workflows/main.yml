@@ -24,7 +24,7 @@ jobs:
         with:
           python-version: "3.11"
       - uses: Gr1N/setup-poetry@v8
-      - run: poetry install && poetry shell
+      - run: poetry install
       - name: Pynecone to build production version into a zip
         run: pc export
       - run: mkdir output
