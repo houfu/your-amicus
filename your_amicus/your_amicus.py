@@ -51,7 +51,7 @@ def home():
                     pc.text(State.result, width="100%"),
                     shadow="lg",
                     padding="1em",
-                    border_radius="lg",
+                    border_radius="20px 20px 20px 20px",
                     width="100%",
                 ),
                 width="100%",
@@ -78,7 +78,7 @@ def index():
         position="relative",
         width="100%",
         height="100vh",
-        background="url(background-notebook.png) repeat-y"
+        background="url(background-notebook.webp) repeat-y"
     )
 
 
