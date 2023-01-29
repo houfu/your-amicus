@@ -78,7 +78,7 @@ def index():
         position="relative",
         width="100%",
         height="100vh",
-        background="radial-gradient(circle at 22% 11%,rgba(62, 180, 137,.20),hsla(0,0%,100%,0) 19%),radial-gradient(circle at 82% 25%,rgba(33,150,243,.18),hsla(0,0%,100%,0) 35%),radial-gradient(circle at 25% 61%,rgba(250, 128, 114, .28),hsla(0,0%,100%,0) 55%)",
+        background="url(background-notebook.png) repeat-y"
     )
 
 
@@ -86,6 +86,10 @@ llm = OpenAI()
 
 # Add state and page to the app.
 app = pc.App(state=State)
-app.add_page(index)
+app.add_page(index,
+             title="Your Amicus -- Your Robot Lawyer Fried",
+             description="Chat with Your Amicus to tap on his legal knowledge and helpfulness",
+             image="android-chrome-192x192.png",
+             )
 app.add_page(home)
 app.compile()
