@@ -6,7 +6,7 @@ def navbar():
         pc.hstack(
             pc.link(
                 pc.hstack(
-                    pc.image(src="favicon.ico"),
+                    pc.image(src="apple-touch-icon.png", height="45px", width="auto"),
                     pc.heading("Your Amicus")),
                 href="/"
             ),
@@ -19,6 +19,7 @@ def navbar():
                 ),
             ),
             justify="space-between",
+            alignItems="center",
             border_bottom="0.2em solid #F0F0F0",
             padding_x="2em",
             padding_y="1em",
