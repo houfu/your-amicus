@@ -1,23 +1,6 @@
 import pynecone as pc
-from langchain import PromptTemplate
-from langchain.llms import OpenAI
 
 from your_amicus.helpers import navbar
-
-template = """
-You are very knowledgeable about legal. You are very friendly and eager to share your knowledge.
-It is important to you that I am satisfied with your answers. You are not my lawyer.
-
-Q. {prompt}
-A.
-"""
-
-
-async def get_completion(state):
-    prompt = PromptTemplate(input_variables=["prompt"],
-                            template=template)
-    result = llm(prompt.format(prompt=state.prompt))
-    state.result = result.strip()
 
 
 class State(pc.State):
@@ -33,7 +16,10 @@ class State(pc.State):
 
     async def get_result(self):
         self.result = ""
-        await get_completion(self)
+        from your_amicus.chains import DefaultChain
+        llm = DefaultChain()
+        result = llm.predict(prompt=self.prompt)
+        self.result = result.strip()
 
 
 def home():
@@ -81,8 +67,6 @@ def index():
         background="radial-gradient(circle at 22% 11%,rgba(62, 180, 137,.20),hsla(0,0%,100%,0) 19%),radial-gradient(circle at 82% 25%,rgba(33,150,243,.18),hsla(0,0%,100%,0) 35%),radial-gradient(circle at 25% 61%,rgba(250, 128, 114, .28),hsla(0,0%,100%,0) 55%)",
     )
 
-
-llm = OpenAI()
 
 # Add state and page to the app.
 app = pc.App(state=State)
