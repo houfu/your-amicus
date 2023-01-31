@@ -233,3 +233,6 @@ fabric.properties
 
 pynecone.db
 .web
+/pcconfig.py
+/backend.zip
+/frontend.zip
