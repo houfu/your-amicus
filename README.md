@@ -4,7 +4,7 @@
 This is a Pynecone project using GPT-3 to create a legal Chatbot.
 
 *This project is in active development and not meant to be used
-as a product.*
+as a product currently.*
 
 ## Contributing
 
@@ -21,4 +21,6 @@ or [toot at me](https://kopiti.am/@houfu).
 1. Clone this project
 2. Set up poetry environment (After installing poetry, run `poetry install` in the project directory.)
 3. Ensure your OpenAI Key is in the environment variables (key: OPENAI_API_KEY)
-4. `pc run` to start a development backend and frontend server.
+4. `pc init` to set up the project structure.
+5. If necessary, copy the contents of pcconfig.py.example to pcconfig.py
+6. `pc run` to start a development backend and frontend server.
