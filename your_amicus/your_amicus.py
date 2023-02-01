@@ -1,45 +1,15 @@
 import pynecone as pc
 
+from your_amicus.chat import chat
 from your_amicus.helpers import navbar
-
-
-class State(pc.State):
-    """The app state."""
-
-    prompt: str = ""
-    result: str = "Ask a question and see what is your Amicus response."
-
-    is_waiting_for_LLM: bool = False
-
-    def toggle_waiting(self):
-        self.is_waiting_for_LLM = not self.is_waiting_for_LLM
-
-    async def get_result(self):
-        self.result = ""
-        from your_amicus.chains import DefaultChain
-        llm = DefaultChain()
-        result = llm.predict(prompt=self.prompt)
-        self.result = result.strip()
+from your_amicus.state import State
 
 
 def home():
     return pc.center(
         pc.vstack(
             pc.center(
-                pc.vstack(
-                    pc.heading("Ask Your Amicus", font_size="1.5em"),
-                    pc.text_area(
-                        on_blur=State.set_prompt, placeholder="Question", width="100%"
-                    ),
-                    pc.button("Get Answer", on_click=[State.toggle_waiting, State.get_result, State.toggle_waiting],
-                              width="100%",
-                              is_loading=State.is_waiting_for_LLM),
-                    pc.text(State.result, width="100%"),
-                    shadow="lg",
-                    padding="1em",
-                    border_radius="20px 20px 20px 20px",
-                    width="100%",
-                ),
+                chat(),
                 width="100%",
             ),
             width=["95%", "80%", "80%", "50%", "50%"],
