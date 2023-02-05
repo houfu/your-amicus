@@ -31,18 +31,17 @@ class ChatState(State):
     def toggle_is_waiting(self):
         self.is_waiting = not self.is_waiting
 
-    def save_message(self, message, outgoing, user):
-        print('Save message called with text: ' + message)
-        self.messages = self.messages + [Message(text=message, outgoing=outgoing, user=user)]
-
     def clear_input(self):
         self.input_message = ""
 
     def save_outgoing_message(self):
-        self.messages = self.messages + [Message(text=self.input_message, outgoing=True, user=self.user)]
+        if self.input_message != "":
+            self.messages = self.messages + [Message(text=self.input_message, outgoing=True, user=self.user)]
 
     def save_incoming_message(self):
-        self.messages = self.messages + [Message(text=get_result(self.input_message), outgoing=True, user=self.user)]
+        if self.input_message != "":
+            self.messages = self.messages + [
+                Message(text=get_result(self.input_message), outgoing=False, user=self.user)]
 
 
 def message_list():
@@ -97,7 +96,8 @@ def message_input():
                 ChatState.save_outgoing_message,
                 ChatState.toggle_is_waiting,
                 ChatState.save_incoming_message,
-                ChatState.toggle_is_waiting
+                ChatState.toggle_is_waiting,
+                ChatState.clear_input
             ]
         ),
         width="100%", margin_top="5px"
@@ -127,7 +127,7 @@ def chat():
             pc.divider(),
             message_input(),
             direction="column",
-            width=["95%", "95%", "75%", "75%", "40%"], height="90%"
+            width=["95%", "95%", "75%", "75%", "40%"], height="100%"
         ),
         width="100%",
         height="90vh",
