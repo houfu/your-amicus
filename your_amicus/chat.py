@@ -13,7 +13,7 @@ class Message(pc.Model, table=True):
     user: str
     text: str
     sent_time: float = datetime.datetime.now().timestamp()
-    outgoing: bool
+    outgoing: str
 
 
 def get_result(prompt: str) -> str:
@@ -26,7 +26,7 @@ class ChatState(State):
     input_message: str
     is_waiting: bool = False
     user: int = 1
-    messages: list[Message] = [Message(text="Hello there!", user=1, outgoing=False)]
+    messages: list[Message] = [Message(text="Hello there!", user=1, outgoing="Amicus")]
 
     def toggle_is_waiting(self):
         self.is_waiting = not self.is_waiting
@@ -36,35 +36,23 @@ class ChatState(State):
 
     def save_outgoing_message(self):
         if self.input_message != "":
-            self.messages = self.messages + [Message(text=self.input_message, outgoing=True, user=self.user)]
+            self.messages = self.messages + [Message(text=self.input_message, outgoing="You", user=self.user)]
 
     def save_incoming_message(self):
         if self.input_message != "":
             self.messages = self.messages + [
-                Message(text=get_result(self.input_message), outgoing=False, user=self.user)]
+                Message(text=get_result(self.input_message), outgoing="Amicus", user=self.user)]
 
 
 def message_list():
     def render_message(message: Message, index):
-        if message.outgoing:
-            return pc.list_item(
-                pc.flex(
-                    pc.text(message.text),
-                    bg="black", color="white", minW="100px", maxW="350px", my="1", p="3"
-                ),
-                key=index, w="100%", justify="flex-end"
-            )
-        else:
-            return pc.list_item(
-                pc.flex(
-                    pc.avatar(ame='Your Amicus', src="android-chrome-192x192.png"),
-                    pc.flex(
-                        pc.text(message.text),
-                        bg="black", color="white", minW="100px", maxW="350px", my="1", p="3"
-                    ),
-                    key=index, w="100%"
-                )
-            )
+        return pc.list_item(
+            pc.flex(
+                pc.text(message.outgoing + ": " + message.text),
+                bg="black", color="white", minW="100px", maxW="350px", my="1", p="3"
+            ),
+            key=index, w="100%", justify="flex-end"
+        )
 
     return pc.flex(
         pc.list(
