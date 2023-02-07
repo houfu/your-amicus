@@ -8,12 +8,12 @@ packages = [{ include = "your_amicus" }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-langchain = "^0.0.69"
+langchain = "^0.0.74"
 openai = "^0.26.2"
 
 
 [tool.poetry.group.dev.dependencies]
-pynecone-io = "^0.1.13"
+pynecone = "^0.1.14"
 
 [build-system]
 requires = ["poetry-core"]
