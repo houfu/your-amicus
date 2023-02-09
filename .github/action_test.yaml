@@ -1,0 +1,26 @@
+name: 'Link Checker: All English'
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  cancel-in-progress: true
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        cache: 'poetry
+        with:
+          python-version: '3.10'
+      - run: poetry install
+      - run: poetry run pytest
