@@ -5,7 +5,6 @@ import datetime
 
 import pynecone as pc
 
-from your_amicus.chains import DefaultChain
 from your_amicus.state import State
 
 
@@ -17,16 +16,19 @@ class Message(pc.Model, table=True):
 
 
 def get_result(prompt: str) -> str:
-    llm = DefaultChain()
-    result = llm.predict(prompt=prompt).strip()
-    return result
+    # llm = DefaultChain()
+    # result = llm.predict(prompt=prompt).strip()
+    import time
+    time.sleep(1.5)
+    return f"I hear you! You said '{prompt}'"
 
 
 class ChatState(State):
     input_message: str
     is_waiting: bool = False
     user: int = 1
-    messages: list[Message] = [Message(text="Hello there!", user=1, outgoing="Amicus")]
+    messages: list[Message] = [
+        Message(text="Hello there! This is the Amicus. I am here to help. Let's talk!", user=1, outgoing="Amicus")]
 
     def toggle_is_waiting(self):
         self.is_waiting = not self.is_waiting
@@ -43,15 +45,30 @@ class ChatState(State):
             self.messages = self.messages + [
                 Message(text=get_result(self.input_message), outgoing="Amicus", user=self.user)]
 
+    def set_input(self, value):
+        self.input_message = value
+
 
 def message_list():
     def render_message(message: Message, index):
-        return pc.list_item(
+        amicus_message = pc.list_item(
             pc.flex(
-                pc.text(message.outgoing + ": " + message.text),
+                pc.text(message.text),
                 bg="black", color="white", minW="100px", maxW="350px", my="1", p="3"
             ),
-            key=index, w="100%", justify="flex-end"
+            key=index, w="100%", justifyContent="flex-start", display="flex"
+        )
+        your_message = pc.list_item(
+            pc.flex(
+                pc.text(message.text),
+                bg="blue", color="white", minW="100px", maxW="350px", my="1", p="3"
+            ),
+            key=index, w="100%", justifyContent="flex-end", display="flex"
+        )
+        return pc.cond(
+            message.outgoing == "Amicus",
+            amicus_message,
+            your_message
         )
 
     return pc.flex(
@@ -84,8 +101,8 @@ def message_input():
                 ChatState.save_outgoing_message,
                 ChatState.toggle_is_waiting,
                 ChatState.save_incoming_message,
+                ChatState.clear_input,
                 ChatState.toggle_is_waiting,
-                ChatState.clear_input
             ]
         ),
         width="100%", margin_top="5px"
@@ -115,7 +132,7 @@ def chat():
             pc.divider(),
             message_input(),
             direction="column",
-            width=["95%", "95%", "75%", "75%", "40%"], height="100%"
+            width="100%", height="100%"
         ),
         width="100%",
         height="90vh",

@@ -16,7 +16,7 @@ def home():
             spacing="2em",
             background="white",
         ),
-        padding_top=["1em", "1em", "1em", "6em", "6em"],
+        margin_top="1em",
         text_align="top",
         position="relative",
         width="100%",
@@ -41,7 +41,7 @@ def index():
 # Add state and page to the app.
 app = pc.App(state=State)
 app.add_page(index,
-             title="Your Amicus -- Your Robot Lawyer Fried",
+             title="Your Amicus -- Your Robot Lawyer Friend",
              description="Chat with Your Amicus to tap on his legal knowledge and helpfulness",
              image="android-chrome-192x192.png",
              )
