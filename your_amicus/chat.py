@@ -35,6 +35,7 @@ class ChatState(State):
 
     def clear_input(self):
         self.input_message = ""
+        return
 
     def save_outgoing_message(self):
         if self.input_message != "":
@@ -47,6 +48,16 @@ class ChatState(State):
 
     def set_input(self, value):
         self.input_message = value
+
+    def on_key_up(self, key):
+        if key == 'Enter':
+            return [
+                ChatState.save_outgoing_message,
+                ChatState.toggle_is_waiting,
+                ChatState.save_incoming_message,
+                ChatState.clear_input,
+                ChatState.toggle_is_waiting,
+            ]
 
 
 def message_list():
@@ -91,7 +102,10 @@ def message_input():
         pc.input(
             placeholder="Type Something...",
             border="none", border_radius="none",
-            on_blur=ChatState.set_input_message,
+            on_change=ChatState.set_input_message,
+            on_key_up=ChatState.on_key_up,
+            value=ChatState.input_message,
+            disabled=ChatState.is_waiting
         ),
         pc.button(
             "Send",
