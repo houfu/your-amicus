@@ -63,18 +63,22 @@ class ChatState(State):
 def message_list():
     def render_message(message: Message, index):
         amicus_message = pc.list_item(
+            pc.text("Amicus says:"),
             pc.flex(
                 pc.text(message.text),
-                bg="black", color="white", minW="100px", maxW="350px", my="1", p="3"
+                bg="black", color="white", minW="100px", maxW="350px", p="3"
             ),
-            key=index, w="100%", justifyContent="flex-start", display="flex"
+            key=index, flexDirection="column", w="100%", alignItems="flex-start", display="flex",
+            my="1", p="1"
         )
         your_message = pc.list_item(
+            pc.text("You say:"),
             pc.flex(
                 pc.text(message.text),
-                bg="blue", color="white", minW="100px", maxW="350px", my="1", p="3"
+                bg="blue", color="white", minW="100px", maxW="350px", p="3"
             ),
-            key=index, w="100%", justifyContent="flex-end", display="flex"
+            key=index, flexDirection="column", w="100%", alignItems="flex-end", display="flex",
+            my="1", p="1"
         )
         return pc.cond(
             message.outgoing == "Amicus",
